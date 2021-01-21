@@ -16,38 +16,38 @@ public struct ForjaLib{
     func getURL() -> String{
         return url;
     }
-    func setURL(nueva:String){
-        url=nueva
+    mutating func setURL(nueva:String){
+        self.url=nueva
     }
     
     func getImagen()->String{
         return imagen
     }
     
-    func setImagen(nuevaImagen:String){
-        imagen=nuevaImagen
+    mutating func setImagen(nuevaImagen:String){
+        self.imagen=nuevaImagen
     }
     
     func getContador()->Int{
         return contador
     }
     
-    func incrementar(){
-        contador=contador+1
+    mutating func incrementar(){
+        self.contador=contador+1
     }
     func getLimite()->Int{
         return limite
     }
     
-    func modificarLimite(nuevoLimite:Int){
-        limite=nuevoLimite
+    mutating func modificarLimite(nuevoLimite:Int){
+        self.limite=nuevoLimite
     }
     
-    func tipoSelfie(){
-        selfie=true
+    mutating func tipoSelfie(){
+        self.selfie=true
     }
-    func tipoOtro(){
-        selfie=false
+    mutating func tipoOtro(){
+        self.selfie=false
     }
     
     func esSelfie()->Bool{
