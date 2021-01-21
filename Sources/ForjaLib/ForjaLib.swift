@@ -6,7 +6,7 @@
 
 import Foundation
 
-class Conexion {
+public struct ForjaLib{
     var url: String="https://qh6ol1kw41.execute-api.us-east-1.amazonaws.com/prod/frontal/"
     var imagen: String =  "no declarada"
     var contador:Int = 0
@@ -125,6 +125,6 @@ class Conexion {
                 }
             }
         }.resume()
-    }
-    
+    }    
 }
+
