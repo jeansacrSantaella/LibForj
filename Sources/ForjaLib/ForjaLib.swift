@@ -13,10 +13,10 @@ public struct ForjaLib{
     var limite:Int = 3
     var selfie:Bool=false
     
-    func getURL() -> String{
+    public func getURL() -> String{
         return url;
     }
-    mutating func setURL(nueva:String){
+    public mutating func setURL(nueva:String){
         self.url=nueva
     }
     
