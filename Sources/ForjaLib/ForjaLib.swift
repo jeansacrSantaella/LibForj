@@ -6,10 +6,10 @@
 
 import Foundation
 
-public struct ForjaLib{
+public class ForjaLib{
     public init(){}
     
-    var url: String="https://qh6ol1kw41.execute-api.us-east-1.amazonaws.com/prod/frontal/"
+    public var url: String="https://qh6ol1kw41.execute-api.us-east-1.amazonaws.com/prod/frontal/"
     var imagen: String =  "no declarada"
     var contador:Int = 0
     var limite:Int = 3
@@ -20,7 +20,7 @@ public struct ForjaLib{
     public func getURL() -> String{
         return url;
     }
-    public mutating func setURL(nueva:String){
+    public func setURL(nueva:String){
         self.url=nueva
     }
     
@@ -28,7 +28,7 @@ public struct ForjaLib{
         return imagen
     }
     
-    public mutating func setImagen(nuevaImagen:String){
+    public func setImagen(nuevaImagen:String){
         self.imagen=nuevaImagen
     }
     
@@ -36,7 +36,7 @@ public struct ForjaLib{
         return contador
     }
     
-    public mutating func incrementar(){
+    public func incrementar(){
         self.contador=contador+1
     }
     
@@ -44,15 +44,15 @@ public struct ForjaLib{
         return limite
     }
     
-    public mutating func modificarLimite(nuevoLimite:Int){
+    public func modificarLimite(nuevoLimite:Int){
         self.limite=nuevoLimite
     }
     
-    public mutating func tipoSelfie(){
+    public func tipoSelfie(){
         self.selfie=true
     }
     
-    public mutating func tipoOtro(){
+    public func tipoOtro(){
         self.selfie=false
     }
     
@@ -60,7 +60,7 @@ public struct ForjaLib{
         return selfie
     }
     
-    public mutating func setFaceId(nuevoFaceid:String){
+    public func setFaceId(nuevoFaceid:String){
         self.faceID=nuevoFaceid
     }
     
