@@ -14,6 +14,8 @@ public struct ForjaLib{
     var contador:Int = 0
     var limite:Int = 3
     var selfie:Bool=false
+    var faceID:String=""
+
     
     public func getURL() -> String{
         return url;
@@ -22,77 +24,54 @@ public struct ForjaLib{
         self.url=nueva
     }
     
-    func getImagen()->String{
+    public func getImagen()->String{
         return imagen
     }
     
-    mutating func setImagen(nuevaImagen:String){
+    public mutating func setImagen(nuevaImagen:String){
         self.imagen=nuevaImagen
     }
     
-    func getContador()->Int{
+    public func getContador()->Int{
         return contador
     }
     
-    mutating func incrementar(){
+    public mutating func incrementar(){
         self.contador=contador+1
     }
-    func getLimite()->Int{
+    
+    public func getLimite()->Int{
         return limite
     }
     
-    mutating func modificarLimite(nuevoLimite:Int){
+    public mutating func modificarLimite(nuevoLimite:Int){
         self.limite=nuevoLimite
     }
     
-    mutating func tipoSelfie(){
+    public mutating func tipoSelfie(){
         self.selfie=true
     }
-    mutating func tipoOtro(){
+    
+    public mutating func tipoOtro(){
         self.selfie=false
     }
     
-    func esSelfie()->Bool{
+    public func esSelfie()->Bool{
         return selfie
     }
-    func crearConexion(){
-    let Url = String(format: url)
-        guard let serviceUrl = URL(string: Url) else { return }
-        let enviar = "data:image/png;base64,"+imagen
-        let parameters: [String: Any] = ["img": enviar]
     
-        var request = URLRequest(url: serviceUrl)
-        request.httpMethod = "POST"
-        //request.setValue("application/json", forHTTPHeaderField: "Accept")
-        //request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed) else {
-            return
-        }
-        request.httpBody = httpBody
-    
-        request.timeoutInterval = 20
-        let session = URLSession.shared
-        session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                //print("response")
-                print(response)
-            }
-            if let data = data {
-                do {
-                    let json:String = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! String
-                    print("repuesta")
-                    print(json)
-                } catch {
-                    print("Error")
-                    print(error)
-                }
-            }
-        }.resume()
+    public mutating func setFaceId(nuevoFaceid:String){
+        self.faceID=nuevoFaceid
     }
     
-    func crearConexionSelfie(faceID:String){
-    let Url = String(format: url)
-        guard let serviceUrl = URL(string: Url) else { return }
+    public func getFaceId()->String{
+        return faceID
+    }
+    
+    
+    public func crearConexion(completion: @escaping ((String) -> Void)){
+        let Url = String(format: url)
+        let serviceUrl = URL(string: Url)!
         let enviar = "data:image/png;base64,"+imagen
         let parameters: [String: Any];
         if(selfie){
@@ -102,31 +81,30 @@ public struct ForjaLib{
         }
         var request = URLRequest(url: serviceUrl)
         request.httpMethod = "POST"
-        //request.setValue("application/json", forHTTPHeaderField: "Accept")
-        //request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed) else {
-            return
-        }
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
         request.httpBody = httpBody
     
         request.timeoutInterval = 20
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
-            if let response = response {
-                //print("response")
-                print(response)
-            }
+          // this is where the completion handler code goes
+          if let response = response {
+            print(response)
+          }
             if let data = data {
                 do {
                     let json:String = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! String
                     print("repuesta")
                     print(json)
+                    completion(json)
                 } catch {
                     print("Error")
                     print(error)
                 }
             }
         }.resume()
-    }    
+    }
+
 }
 
