@@ -9,7 +9,7 @@ import Foundation
 public class ForjaLib{
     public init(){}
     
-    public var url: String="https://qh6ol1kw41.execute-api.us-east-1.amazonaws.com/prod/frontal/"
+    var url: String="https://wp8mrbv9qd.execute-api.us-east-1.amazonaws.com/prod/frontal/"
     var imagen: String =  "no declarada"
     var contador:Int = 0
     var limite:Int = 3
