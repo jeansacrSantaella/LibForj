@@ -85,23 +85,36 @@ public class ForjaLib{
         let httpBody = try! JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
         request.httpBody = httpBody
     
-        request.timeoutInterval = 20
+        request.timeoutInterval = 2000
+        //request.timeoutInterval = 200
         let session = URLSession.shared
         session.dataTask(with: request) { (data, response, error) in
           // this is where the completion handler code goes
           if let response = response {
             print(response)
           }
-            if let data = data {
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                    print("codigo de servidor \(httpStatus.statusCode)")
+                completion("codigo de servidor \(httpStatus.statusCode)")
+            }
+            else if let data = data {
+                print(data)
                 do {
                     let json:String = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! String
                     print("repuesta")
                     print(json)
+                    self.respuesta=json
                     completion(json)
-                } catch {
+                } catch let error as NSError {
                     print("Error")
                     print(error)
+                    self.respuesta="Error"
+                    completion(error as! String)
                 }
+            }else{
+                print("No hay respuesta")
+                self.respuesta="Time out"
+                completion("Time out")
             }
         }.resume()
     }
