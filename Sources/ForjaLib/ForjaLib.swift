@@ -6,7 +6,7 @@
 
 import Foundation
 
-public class ForjaLib{
+public class ForjaLib {
     public init(){}
     
     var url: String="https://wp8mrbv9qd.execute-api.us-east-1.amazonaws.com/prod/frontal/"
@@ -15,6 +15,9 @@ public class ForjaLib{
     var limite:Int = 3
     var selfie:Bool=false
     var faceID:String=""
+    var respuesta=""
+    var usaComprobante:Bool=false
+    var usaSelfie:Bool=false
 
     
     public func getURL() -> String{
@@ -118,6 +121,5 @@ public class ForjaLib{
             }
         }.resume()
     }
-
 }
 
